@@ -1,0 +1,49 @@
+openapi: 3.0.0
+info:
+  title: T-shirt Store
+  description: An ecomm app
+  version: 1.0.0
+  contact:
+    email: dev@gmail.com
+    url: "http://tshirtdev.com"
+
+servers:
+  - url: "http://localhost:5000/api/{version}"
+    description: Local server
+    variables:
+      version:
+        enum:
+          - v1
+          - v2
+        default: v1
+
+components:
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: token
+    BearerAuth:
+      type: http
+      scheme: bearer
+
+paths:
+  /:
+    get:
+      tags:
+        - HOME
+      summary: Home routes
+      responses:
+        200:
+          description: Returns a greeting message
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+        500:
+          description: Internal server error
